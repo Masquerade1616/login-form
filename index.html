@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* reset html */
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        *{
+            box-sizing: border-box;
+        }
+        #buttonlar{
+            text-align: center; 
+        }
+        form{
+            background-color: #f2f2f2;
+            padding: 20px;
+            max-width: 400px;
+            margin: auto;
+            border-radius: 5px;
+        }
+        /* inputun type text olanların veya pasword email olanların stilini degiştiriyoruz */
+        input[type=text],input[type=password],input[type=email]{
+            width: 100%;
+            padding: 12px;
+            outline: none;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 6px;
+            margin-bottom: 16px;
+        }
+
+        input[type=button]{
+            background-color: #4caf50;
+            padding: 12px 20px;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type=button]:hover{
+            background-color: #45a049;
+        }
+
+        #girişhata, #kayithata{
+            color: red;
+
+        }
+        #girişformu{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <input type="color" id="renk">
+
+        <!-- giriş kayıt butonları -->
+
+        <div id="buttonlar">
+            <button id="kayit">kayit</button>
+            <button id="giriş">giriş</button>
+
+        </div>
+        <!-- kayıt formu -->
+
+        <form id="kayitformu">
+            <h3>kayit ol</h3>
+            <label for="kullaniciadi">kullanıcı adı</label>
+            <input type="text" name="" id="kullaniciadi">
+            <label for="email">e posta</label>
+            <input type="email" id="email">
+            <label for="şifre">şifre</label>
+            <input type="password" name="" id="şifre">
+            <label for="şifre2">şifre tekrar</label>
+            <input type="password" name="" id="şifre2">
+
+            <!-- button kullanırsak inputlara yazdıgımız veriler silinir input button kullanırsak silinmez sadece uyarı verir -->
+            <input type="button" value="kayıt ol" id="kayıtol">
+
+            <div id="kayithata"></div>
+
+
+        </form>
+        <form id="girişformu">
+            <h3>giriş yap</h3>
+            <label for="kullanicigiriş">kullanıcı adı</label>
+            <input type="text" name="" id="kullanıcıgiriş">
+            <label for="parolagiriş">parola</label>
+            <input type="password" name="" id="parolagiriş">
+            <input type="button" value="giriş yap" id="girişyap">
+
+            <p id="girişhata"></p>
+
+        </form>
+
+
+    </div>
+
+
+
+
+
+
+    <script src="jquery-3.6.0.min.js"></script>
+    <script>
+        // arak plan rengini degiştirmek için change fonksıyonunu kullanıyoruz boşluga basıldıgında seçtigimiz renk kullanılır
+        $("#renk").change(function(){
+            renk = $("#renk").val();
+            $("body").css("background-color", renk);
+        });
+
+        //giriş butonuna tıkladındıgında
+
+        $("#giriş").click(function(){
+            $("#kayitformu").fadeOut(function(){
+                $("#girişformu").fadeIn();
+            });
+
+
+        });
+        $("#kayit").click(function(){
+            $("#girişformu").fadeOut(function(){
+                $("#kayitformu").fadeIn();
+            });
+        });
+
+
+        //giriş yap butonuna tıklandıgında
+
+        $("#girişyap").click(function(){
+
+            kullanicigiriş = $("#kullanıcıgiriş").val();
+
+            parolagiriş = $("#parolagiriş").val();
+
+            kullaniciadi = "arden";
+
+            parola = "12345";
+
+
+            if(kullanicigiriş == kullaniciadi && parolagiriş == parola){
+                alert("giriş başarılı asker");
+            }
+            else{
+                $("#girişhata").html("kullanıcı adı veya parola hatalı ");
+            }
+
+        });
+
+
+        // kayit ol butonuna tıkladıgımda
+
+        $("#kayıtol").click(function(){
+            kullaniciadi = $("#kullaniciadi").val();
+
+            email = $("#email").val();
+
+            parola = $("#şifre").val();
+
+            parola2 = $("#şifre2").val();
+
+            if(kullaniciadi =="" || email =="" || parola =="" || parola2 ==""){
+
+                $("#kayithata").html("tüm alanlar doldurulmalıdır");
+
+            }
+            else{
+
+                if(parola != parola2){ 
+                    $("#kayithata").html("parolalar eşleşmiyor");
+                }
+                else{
+                    alert("kayıt başarılı")
+                }
+                
+            }
+
+        });
+
+    </script>
+</body>
+</html>
